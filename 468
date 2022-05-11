@@ -1,0 +1,59 @@
+#include "mbed.h"
+DigitalOut redled(p5);
+DigitalOut greenled(p6);
+DigitalIn switchinput(p7);
+int main()
+{
+    while(1) {
+        if (switchinput==1) { //test value of switchinput
+//execute following block if switchinput is 1
+            greenled = 0; //green led is off
+            redled = 1; // flash red led
+            wait(0.2);
+            redled = 0;
+            wait(0.2);
+        } //end of if
+        else { //here if switchinput is 0
+            redled = 0; //red led is off
+            greenled = 1; // flash green led
+            wait(0.2);
+            greenled = 0;
+            wait(0.2);
+        } //end of else
+    } //end of while(1)
+} //end of main
+
+
+#include "mbed.h"
+PwmOut led(p5);
+
+int main() {
+    while(1) {
+        led = led + 0.10;
+        printf("LED is now %.2f\n", led.read());
+        wait(0.2);
+
+        if(led == 1.0) {
+            led = 0;
+        }
+    }
+}
+
+
+#include "mbed.h“
+PwmOut speaker(p21);
+void play_tone(float frequency, float volume, int interval, int rest)
+ 
+{
+  speaker.period(1.0 / frequency);   
+ speaker = volume;   
+ wait(interval);   
+ speaker = 0.0;   
+ wait(rest);}
+int main(){ 
+   while(1) {  
+	play_tone(200.0, 0.5, 1, 0);        
+	play_tone(150.0, 0.5, 1, 0);        
+	play_tone(125.0, 0.5, 1, 2);    
+}
+}
